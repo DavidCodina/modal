@@ -1,12 +1,12 @@
 function Modal(selector, config){
-  this._config          = config || {};
-  this._modal           = document.querySelector(selector);
-  this._openElements    = document.querySelectorAll('[data-target="' + selector + '"]');
-  this._dismissElements = this._modal.querySelectorAll('[data-dismiss="modal"]');
-  this.show             = this.show.bind(this);
-  this.hide             = this.hide.bind(this);
-  this.destroy          = this.destroy.bind(this);
-
+  this._config           = config || {};
+  this._modal            = document.querySelector(selector);
+  this._openElements     = document.querySelectorAll('[data-target="' + selector + '"]');
+  this._dismissElements  = this._modal.querySelectorAll('[data-dismiss="modal"]');
+  this.show              = this.show.bind(this);
+  this.hide              = this.hide.bind(this);
+  this._handleModalClick = this._handleModalClick.bind(this);
+  this.destroy           = this.destroy.bind(this);
   this._init();
   return this;
 }
@@ -21,6 +21,7 @@ Modal.prototype._init = function(){
     var element = this._dismissElements[j];
     element.addEventListener('click', this.hide);
   }
+  this._modal.addEventListener('click', this._handleModalClick);
 };
 
 
@@ -45,6 +46,11 @@ Modal.prototype.hide = function(){
 };
 
 
+Modal.prototype._handleModalClick = function(e){
+  if (e.currentTarget === e.target){ this.hide(); }
+};
+
+
 Modal.prototype.destroy = function(){
   for (var i = 0; i < this._openElements.length; i++){
     var element = this._openElements[i];
@@ -54,7 +60,6 @@ Modal.prototype.destroy = function(){
     var element = this._dismissElements[j];
     element.removeEventListener('click', this.hide);
   }
-
-  console.log("All click event listeners removed for " + this._modal);
+  this._modal.removeEventListener('click', this._handleModalClick);
   return this;
 };
