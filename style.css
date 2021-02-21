@@ -38,7 +38,7 @@ pre {
   margin: 0 auto 50px auto;
   font-size: 14px;
   color: #333;
-  background-color: rgb(250,250,250);
+  background-color: rgb(255,255,255);
   border: 2px solid #333;
   border-radius: 15px;
   overflow:scroll;
@@ -251,7 +251,7 @@ pre {
 
 .modal-open { max-height: 100vh; }
 
-.modal.show { visibility: visible; } 
+.modal.show { visibility: visible; }
 
 
 /* ========================
